@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FARMKES - Кликай и зарабатывай</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #8a2be2;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .coins, .level {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .coins { color: gold; }
+        .level { color: #00bfff; }
+
+        .bank-card {
+            width: 300px;
+            height: 180px;
+            background: #1e3c72;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            flex-direction: column;
+        }
+
+        .click-value {
+            font-size: 1rem;
+            margin-top: 10px;
+            color: #ccc;
+        }
+
+        .upgrades {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .upgrade {
+            background: #1a1a2e;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid #333;
+        }
+
+        .upgrade:hover {
+            background: #2a2a3e;
+        }
+
+        .upgrade-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .upgrade-cost {
+            color: gold;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">FARMKES</h1>
+        <p>Кликай и зарабатывай на FARMKES</p>
+    </div>
+
+    <div class="stats">
+        <div class="coins">Монеты: <span id="coins">0</span></div>
+        <div class="level">Уровень: <span id="level">1</span></div>
+    </div>
+
+    <div class="bank-card" id="bank-card">
+        FARMKES CARD
+        <div class="click-value">+<span id="click-value">1</span> монет за клик</div>
+    </div>
+
+    <div class="upgrades">
+        <div class="upgrade" id="upgrade-click">
+            <div class="upgrade-header">
+                <span>Улучшение клика</span>
+                <span class="upgrade-cost" id="click-cost">10</span>
+            </div>
+            <div>Увеличивает количество монет за клик</div>
+        </div>
+    </div>
+
+    <script>
+        // Простые переменные
+        let coins = 0;
+        let clickValue = 1;
+        let clickCost = 10;
+
+        // Элементы
+        const coinsElement = document.getElementById('coins');
+        const bankCard = document.getElementById('bank-card');
+        const clickValueElement = document.getElementById('click-value');
+        const clickCostElement = document.getElementById('click-cost');
+
+        // Клик по карте
+        function handleCardClick() {
+            coins += clickValue;
+            coinsElement.textContent = coins;
+            console.log('Клик! Монеты:', coins);
+        }
+
+
+// Улучшение клика
+        function upgradeClick() {
+            if (coins >= clickCost) {
+                coins -= clickCost;
+                coinsElement.textContent = coins;
+                clickValue += 1;
+                clickCost = Math.floor(clickCost * 2);
+                clickValueElement.textContent = clickValue;
+                clickCostElement.textContent = clickCost;
+                console.log('Улучшение куплено!');
+                alert('Улучшение куплено! ✨');
+            } else {
+                alert('Недостаточно монет!');
+            }
+        }
+
+        // Назначаем обработчики
+        bankCard.addEventListener('click', handleCardClick);
+        document.getElementById('upgrade-click').addEventListener('click', upgradeClick);
+
+        console.log('Игра запущена!');
+    </script>
+</body>
+</html>
